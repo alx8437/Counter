@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, {FC, useState} from 'react';
 
-export const Counter = () => {
-    const minValue = 0;
-    const maxValue = 5;
-    const [value, setValue] = useState<number>(minValue);
+type CounterPropsType = {
+    startValue: number
+    endValue: number
+}
+
+export const Counter:FC<CounterPropsType> = ({startValue, endValue}) => {
+    const [value, setValue] = useState<number>(startValue);
 
     const increment = () => {
         const newValue = value + 1
@@ -11,17 +14,17 @@ export const Counter = () => {
     }
 
     const resetInitialValue = () => {
-        setValue(minValue)
+        setValue(startValue)
     }
 
-    const inputClassName = `counter__input ${value === maxValue ? 'error' : ''}`
+    const inputClassName = `counter__input ${value === endValue ? 'error' : ''}`
 
     return (
         <div className='counter'>
             <input value={value} className={inputClassName} type="text"/>
             <div>
-                <button disabled={value === maxValue} onClick={increment} className='counter__button'>inc</button>
-                <button disabled={value === minValue} onClick={resetInitialValue} className='counter__button'>reset</button>
+                <button disabled={value === endValue} onClick={increment} className='counter__button'>inc</button>
+                <button disabled={value === startValue} onClick={resetInitialValue} className='counter__button'>reset</button>
             </div>
         </div>
     );
