@@ -1,40 +1,43 @@
-import React, {ChangeEvent, FC, useState} from 'react';
+import React, { ChangeEvent, FC, useState, useEffect } from 'react';
 
 type SettingPropsType = {
-    startValue: number
-    endValue: number
-    setNewValues: (minValue: number, maxValue: number) => void
-}
+    startValue: number;
+    endValue: number;
+    setNewValues: (minValue: number, maxValue: number) => void;
+    errorMessage: string;
+    setErrorMessage: (error: string) => void;
+};
 
-export const Settings:FC<SettingPropsType> = ({startValue, endValue, setNewValues}) => {
-    const [minValue, setMinValue] = useState<number>(startValue)
-    const [maxValue, setMaxValue] = useState<number>(endValue)
+export const Settings: FC<SettingPropsType> = ({ startValue, endValue, setNewValues, setErrorMessage }) => {
+    const [minValue, setMinValue] = useState(startValue);
+    const [maxValue, setMaxValue] = useState(endValue);
+    const [error, setError] = useState(false);
 
-    const onChangeMinValue = (e: ChangeEvent<HTMLInputElement>) => {
-        const {value} = e.currentTarget
-        setMinValue(Number(value))
-    }
+    useEffect(() => {
+        if (minValue < 0 || maxValue < 0 || maxValue <= minValue) {
+            setError(true);
+            setErrorMessage('Incorrect value');
+        } else {
+            setError(false);
+            setErrorMessage('');
+        }
+    }, [minValue, maxValue, setErrorMessage]);
 
-    const onChangeMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-        const {value} = e.currentTarget
-        setMaxValue(Number(value))
-    }
-
-    const setValues = () => {
-        setNewValues(minValue, maxValue)
-    }
+    const handleChange = (setter: React.Dispatch<React.SetStateAction<number>>) => (e: ChangeEvent<HTMLInputElement>) => {
+        setter(Number(e.target.value));
+    };
 
     return (
         <div>
             <div>
                 MinValue
-                <input type="number" value={minValue} onChange={onChangeMinValue}/>
+                <input className={error ? 'input__error' : ''} type="number" value={minValue} onChange={handleChange(setMinValue)} />
             </div>
             <div>
                 MaxValue
-                <input type="number" value={maxValue} onChange={onChangeMaxValue}/>
+                <input className={error ? 'input__error' : ''} type="number" value={maxValue} onChange={handleChange(setMaxValue)} />
             </div>
-            <button onClick={setValues}>Set</button>
+            <button disabled={error} onClick={() => setNewValues(minValue, maxValue)}>Set</button>
         </div>
     );
 };

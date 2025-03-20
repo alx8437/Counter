@@ -7,6 +7,7 @@ function App() {
     const [startValue, setStartValue] = useState<number>(0);
     const [endValue, setEndValue] = useState<number>(5);
     const [userValue, setUserValue] = useState<number>(startValue);
+    const [errorMessage, setErrorMessage] = useState<string>('')
 
     const setNewValues = (minValue: number, maxValue: number) => {
         setStartValue(minValue)
@@ -20,8 +21,8 @@ function App() {
 
     return (
         <div className="container">
-            <Counter setValue={setValue} startValue={startValue} endValue={endValue} userValue={userValue}/>
-            <Settings setNewValues={setNewValues} startValue={startValue} endValue={endValue} />
+            <Counter setValue={setValue} startValue={startValue} endValue={endValue} userValue={userValue} errorMessage={errorMessage}/>
+            <Settings setErrorMessage={setErrorMessage} setNewValues={setNewValues} startValue={startValue} endValue={endValue} errorMessage={errorMessage} />
         </div>
     );
 }
