@@ -1,0 +1,39 @@
+.settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 80px;
+  padding: 14px;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.error {
+  color: red;
+
+  &__input {
+    border: 1px solid red;
+  }
+}
+
+.input {
+  margin-right: 10px;
+}
+
+.inputContainer {
+  width: 200px;
+}
+
+.inputLabel {
+  color: white;
+}
+
+.button {
+  margin-top: 5px;
+  width: 105px;
+  border-radius: 5px;
+}
+
+
+

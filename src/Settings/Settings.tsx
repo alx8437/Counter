@@ -1,4 +1,6 @@
 import React, { ChangeEvent, FC, useState, useEffect } from 'react';
+import styles from './Settings.module.scss';
+import {Button} from "../ui/Button";
 
 type SettingPropsType = {
     startValue: number;
@@ -28,16 +30,16 @@ export const Settings: FC<SettingPropsType> = ({ startValue, endValue, setNewVal
     };
 
     return (
-        <div>
-            <div>
-                MinValue
-                <input className={error ? 'input__error' : ''} type="number" value={minValue} onChange={handleChange(setMinValue)} />
+        <div className={styles.settings}>
+            <div className={styles.inputContainer}>
+                <span className={styles.inputLabel}>MinValue</span>
+                <input className={error ? styles.error__input : ''} type="number" value={minValue} onChange={handleChange(setMinValue)} />
             </div>
-            <div>
-                MaxValue
-                <input className={error ? 'input__error' : ''} type="number" value={maxValue} onChange={handleChange(setMaxValue)} />
+            <div className={styles.inputContainer}>
+                <span className={styles.inputLabel}>MaxValue</span>
+                <input className={error ? styles.error__input : ''} type="number" value={maxValue} onChange={handleChange(setMaxValue)} />
             </div>
-            <button disabled={error} onClick={() => setNewValues(minValue, maxValue)}>Set</button>
+            <Button className={styles.button} disabled={error} onClick={() => setNewValues(minValue, maxValue)}>Set</Button>
         </div>
     );
 };

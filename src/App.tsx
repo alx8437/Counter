@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
-import Counter from "./Counter";
-import {Settings} from "./Settings";
+import Counter from "./Counter/Counter";
+import {Settings} from "./Settings/Settings";
 
 function App() {
     const [startValue, setStartValue] = useState<number>(0);

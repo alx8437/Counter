@@ -1,0 +1,27 @@
+.counter {
+  padding: 30px;
+  border: 1px solid white;
+  border-radius: 10px;
+  margin: 10px;
+
+  &__value {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #e6dbdb;
+    font-size: 50px;
+  }
+
+  &__button {
+    margin-top: 10px;
+    width: 105px;
+    border-radius: 5px;
+  }
+
+  &__error {
+    color: red;
+  }
+}
