@@ -1,16 +1,16 @@
-import React, { ChangeEvent, FC, useState, useEffect } from 'react';
+import React, { ChangeEvent, useState, useEffect } from 'react';
 import styles from './Settings.module.scss';
 import {Button} from "../ui/Button";
+import {useDispatch, useSelector} from "react-redux";
+import {selectCounter} from "../store/selectors";
+import {changeEndValueAC, changeStartValueAC, changeUserValueAC, setErrorMessageAC} from "../store/counterReducer";
 
-type SettingPropsType = {
-    startValue: number;
-    endValue: number;
-    setNewValues: (minValue: number, maxValue: number) => void;
-    errorMessage: string;
-    setErrorMessage: (error: string) => void;
-};
 
-export const Settings: FC<SettingPropsType> = ({ startValue, endValue, setNewValues, setErrorMessage }) => {
+
+export const Settings = () => {
+    const { endValue, startValue} = useSelector(selectCounter);
+    const dispatch = useDispatch();
+
     const [minValue, setMinValue] = useState(startValue);
     const [maxValue, setMaxValue] = useState(endValue);
     const [error, setError] = useState(false);
@@ -18,16 +18,22 @@ export const Settings: FC<SettingPropsType> = ({ startValue, endValue, setNewVal
     useEffect(() => {
         if (minValue < 0 || maxValue < 0 || maxValue <= minValue) {
             setError(true);
-            setErrorMessage('Incorrect value');
+            dispatch(setErrorMessageAC('Incorrect value'));
         } else {
             setError(false);
-            setErrorMessage('');
+            dispatch(setErrorMessageAC(''));
         }
-    }, [minValue, maxValue, setErrorMessage]);
+    }, [minValue, maxValue, dispatch]);
 
     const handleChange = (setter: React.Dispatch<React.SetStateAction<number>>) => (e: ChangeEvent<HTMLInputElement>) => {
         setter(Number(e.target.value));
     };
+
+    const setNewValues = () => {
+        dispatch(changeStartValueAC(minValue));
+        dispatch(changeUserValueAC(minValue));
+        dispatch(changeEndValueAC(maxValue));
+    }
 
     return (
         <div className={styles.settings}>
@@ -39,7 +45,7 @@ export const Settings: FC<SettingPropsType> = ({ startValue, endValue, setNewVal
                 <span className={styles.inputLabel}>MaxValue</span>
                 <input className={error ? styles.error__input : ''} type="number" value={maxValue} onChange={handleChange(setMaxValue)} />
             </div>
-            <Button className={styles.button} disabled={error} onClick={() => setNewValues(minValue, maxValue)}>Set</Button>
+            <Button className={styles.button} disabled={error} onClick={setNewValues}>Set</Button>
         </div>
     );
 };

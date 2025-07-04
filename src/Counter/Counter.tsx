@@ -1,24 +1,25 @@
-import React, {FC} from 'react';
+import React from 'react';
 import styles from './Counter.module.scss'
 import {Button} from "../ui/Button";
+import {useDispatch, useSelector} from "react-redux";
+import {selectCounter} from "../store/selectors";
+import {changeUserValueAC} from "../store/counterReducer";
 
-type CounterPropsType = {
-    startValue: number
-    endValue: number
-    userValue: number
-    setValue: (newValue: number) => void
-    errorMessage: string
-}
 
-export const Counter:FC<CounterPropsType> = ({startValue, endValue, userValue, setValue, errorMessage}) => {
+export const Counter = () => {
+    const {errorMessage, userValue, endValue, startValue} = useSelector(selectCounter);
+    const dispatch = useDispatch();
+
     const hasError = !!errorMessage
 
     const increment = () => {
-        const newValue = userValue + 1
-        setValue(newValue);
+        const newValue = userValue + 1;
+        dispatch(changeUserValueAC(newValue));
     }
 
-    const resetInitialValue = () =>  setValue(startValue)
+    const resetInitialValue = () => {
+        dispatch(changeUserValueAC(startValue));
+    }
 
     const valueClassName = `${styles.counter__value} ${userValue === endValue ? styles.counter__error : ''}`
 
