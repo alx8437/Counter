@@ -1,4 +1,4 @@
-type CounterReducerStateType = {
+export type CounterReducerStateType = {
     startValue: number;
     endValue: number;
     userValue: number;
@@ -25,28 +25,28 @@ type SetErrorMessageActionType = {
     message: string,
 }
 
-const changeStartValueAC = (newValue: number): ChangeStartValueActionType => {
+export const changeStartValueAC = (newValue: number): ChangeStartValueActionType => {
     return {
         type: 'CHANGE_START_VALUE',
         newValue
     } as const
 }
 
-const changeEndValueAC = (newValue: number): ChangeEndValueActionType => {
+export const changeEndValueAC = (newValue: number): ChangeEndValueActionType => {
     return {
         type: 'CHANGE_END_VALUE',
         newValue
     } as const
 }
 
-const changeUserValueAC = (newValue: number): ChangeUserValueActionType => {
+export const changeUserValueAC = (newValue: number): ChangeUserValueActionType => {
     return {
         type: 'CHANGE_USER_VALUE',
         newValue
     } as const
 }
 
-const setErrorMessageAC = (message: string): SetErrorMessageActionType => {
+export const setErrorMessageAC = (message: string): SetErrorMessageActionType => {
     return {
         type: "SET_ERROR_MESSAGE",
         message
@@ -55,7 +55,14 @@ const setErrorMessageAC = (message: string): SetErrorMessageActionType => {
 
 type ActionTypes = ChangeStartValueActionType | ChangeEndValueActionType | ChangeUserValueActionType | SetErrorMessageActionType
 
-export const counterReducer = (state: CounterReducerStateType, action: ActionTypes): CounterReducerStateType => {
+const initialState: CounterReducerStateType = {
+    startValue: 1,
+    endValue: 6,
+    userValue: 1,
+    errorMessage: ''
+}
+
+export const counterReducer = (state: CounterReducerStateType = initialState, action: ActionTypes): CounterReducerStateType => {
     switch (action.type) {
         case "CHANGE_START_VALUE": {
             return {
