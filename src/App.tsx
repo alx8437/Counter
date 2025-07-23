@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './App.css';
 import Counter from "./Counter/Counter";
 import {Settings} from "./Settings/Settings";
@@ -18,6 +18,28 @@ function App() {
     const setValue = (newValue: number) => {
         setUserValue(newValue);
     }
+
+    useEffect(() => {
+        localStorage.setItem('startValue', JSON.stringify(startValue));
+    }, [startValue])
+
+    useEffect(() => {
+        localStorage.setItem('endValue', JSON.stringify(endValue));
+    }, [endValue])
+
+    useEffect(() => {
+        const startValueAsString = localStorage.getItem('startValue');
+        if (startValueAsString) {
+            setStartValue(JSON.parse(startValueAsString));
+        }
+
+        const endValueAsString = localStorage.getItem('endValue');
+        if (endValueAsString) {
+            console.log('setEndValue')
+            setEndValue(JSON.parse(endValueAsString))
+        }
+
+    }, [])
 
     return (
         <div className="container">
