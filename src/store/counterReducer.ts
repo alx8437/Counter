@@ -1,3 +1,5 @@
+import {createAction, createReducer} from "@reduxjs/toolkit";
+
 export type CounterReducerStateType = {
     startValue: number;
     endValue: number;
@@ -5,55 +7,13 @@ export type CounterReducerStateType = {
     errorMessage: string;
 }
 
-type ChangeStartValueActionType = {
-    type: 'CHANGE_START_VALUE',
-    newValue: number
-}
+export const changeStartValueAC = createAction<{newValue: number}>('counter/changeStartValue');
 
-type ChangeEndValueActionType = {
-    type: 'CHANGE_END_VALUE',
-    newValue: number
-}
+export const changeEndValueAC = createAction<{newValue: number}>('counter/changeEndValue');
 
-type ChangeUserValueActionType = {
-    type: 'CHANGE_USER_VALUE',
-    newValue: number
-}
+export const changeUserValueAC = createAction<{newValue: number}>('counter/changeUserValue');
 
-type SetErrorMessageActionType = {
-    type: 'SET_ERROR_MESSAGE',
-    message: string,
-}
-
-export const changeStartValueAC = (newValue: number): ChangeStartValueActionType => {
-    return {
-        type: 'CHANGE_START_VALUE',
-        newValue
-    } as const
-}
-
-export const changeEndValueAC = (newValue: number): ChangeEndValueActionType => {
-    return {
-        type: 'CHANGE_END_VALUE',
-        newValue
-    } as const
-}
-
-export const changeUserValueAC = (newValue: number): ChangeUserValueActionType => {
-    return {
-        type: 'CHANGE_USER_VALUE',
-        newValue
-    } as const
-}
-
-export const setErrorMessageAC = (message: string): SetErrorMessageActionType => {
-    return {
-        type: "SET_ERROR_MESSAGE",
-        message
-    }
-}
-
-type ActionTypes = ChangeStartValueActionType | ChangeEndValueActionType | ChangeUserValueActionType | SetErrorMessageActionType
+export const setErrorMessageAC = createAction<{message: string}>('counter/setErrorMessage');
 
 const initialState: CounterReducerStateType = {
     startValue: 1,
@@ -62,38 +22,19 @@ const initialState: CounterReducerStateType = {
     errorMessage: ''
 }
 
-export const counterReducer = (state: CounterReducerStateType = initialState, action: ActionTypes): CounterReducerStateType => {
-    switch (action.type) {
-        case "CHANGE_START_VALUE": {
-            return {
-                ...state,
-                startValue: action.newValue
-            }
-        }
+export const counterReducer = createReducer(initialState, builder => {
+    builder
+        .addCase(changeStartValueAC, (state, action) => {
+            state.startValue = action.payload.newValue
+        })
+        .addCase(changeEndValueAC, (state, action) => {
+            state.endValue = action.payload.newValue
+        })
+        .addCase(changeUserValueAC, (state, action) => {
+            state.userValue = action.payload.newValue
+        })
+        .addCase(setErrorMessageAC, (state, action) => {
+            state.errorMessage = action.payload.message
+        })
+})
 
-        case "CHANGE_END_VALUE": {
-            return {
-                ...state,
-                endValue: action.newValue
-            }
-        }
-
-        case "CHANGE_USER_VALUE": {
-            return {
-                ...state,
-                userValue: action.newValue
-            }
-        }
-
-        case "SET_ERROR_MESSAGE": {
-            return {
-                ...state,
-                errorMessage: action.message
-            }
-        }
-
-        default:
-            return state;
-
-    }
-}

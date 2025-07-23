@@ -14,11 +14,11 @@ export const Counter = () => {
 
     const increment = () => {
         const newValue = userValue + 1;
-        dispatch(changeUserValueAC(newValue));
+        dispatch(changeUserValueAC({newValue: newValue}));
     }
 
     const resetInitialValue = () => {
-        dispatch(changeUserValueAC(startValue));
+        dispatch(changeUserValueAC({newValue: startValue}));
     }
 
     const valueClassName = `${styles.counter__value} ${userValue === endValue ? styles.counter__error : ''}`

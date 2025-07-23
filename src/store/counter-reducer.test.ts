@@ -17,7 +17,7 @@ describe('counterReducer', () => {
 
     it('should handle CHANGE_START_VALUE', () => {
         const newStartValue = 2;
-        const action = changeStartValueAC(newStartValue);
+        const action = changeStartValueAC({newValue: newStartValue});
         const expectedState = {
             ...initialState,
             startValue: newStartValue,
@@ -28,7 +28,7 @@ describe('counterReducer', () => {
 
     it('should handle CHANGE_END_VALUE', () => {
         const newEndValue = 10;
-        const action = changeEndValueAC(newEndValue);
+        const action = changeEndValueAC({newValue: newEndValue});
         const expectedState = {
             ...initialState,
             endValue: newEndValue,
@@ -39,7 +39,7 @@ describe('counterReducer', () => {
 
     it('should handle CHANGE_USER_VALUE', () => {
         const newUserValue = 3;
-        const action = changeUserValueAC(newUserValue);
+        const action = changeUserValueAC({newValue: newUserValue});
         const expectedState = {
             ...initialState,
             userValue: newUserValue,
@@ -50,7 +50,7 @@ describe('counterReducer', () => {
 
     it('should handle SET_ERROR_MESSAGE', () => {
         const errorMessage = 'Invalid range';
-        const action = setErrorMessageAC(errorMessage);
+        const action = setErrorMessageAC({message: errorMessage});
         const expectedState = {
             ...initialState,
             errorMessage,
@@ -68,16 +68,16 @@ describe('counterReducer', () => {
     it('should handle multiple actions correctly', () => {
         let state = initialState;
 
-        state = counterReducer(state, changeStartValueAC(1));
+        state = counterReducer(state, changeStartValueAC({newValue: 1}));
         expect(state.startValue).toBe(1);
 
-        state = counterReducer(state, changeEndValueAC(10));
+        state = counterReducer(state, changeEndValueAC({newValue: 10}));
         expect(state.endValue).toBe(10);
 
-        state = counterReducer(state, changeUserValueAC(5));
+        state = counterReducer(state, changeUserValueAC({newValue: 5}));
         expect(state.userValue).toBe(5);
 
-        state = counterReducer(state, setErrorMessageAC('Error occurred'));
+        state = counterReducer(state, setErrorMessageAC({message: 'Error occurred'}));
         expect(state.errorMessage).toBe('Error occurred');
     });
 });

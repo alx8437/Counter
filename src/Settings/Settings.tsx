@@ -18,10 +18,10 @@ export const Settings = () => {
     useEffect(() => {
         if (minValue < 0 || maxValue < 0 || maxValue <= minValue) {
             setError(true);
-            dispatch(setErrorMessageAC('Incorrect value'));
+            dispatch(setErrorMessageAC({message: 'Incorrect value'}));
         } else {
             setError(false);
-            dispatch(setErrorMessageAC(''));
+            dispatch(setErrorMessageAC({message: ''}));
         }
     }, [minValue, maxValue, dispatch]);
 
@@ -30,9 +30,9 @@ export const Settings = () => {
     };
 
     const setNewValues = () => {
-        dispatch(changeStartValueAC(minValue));
-        dispatch(changeUserValueAC(minValue));
-        dispatch(changeEndValueAC(maxValue));
+        dispatch(changeStartValueAC({newValue: minValue}));
+        dispatch(changeUserValueAC({newValue: minValue}));
+        dispatch(changeEndValueAC({newValue: maxValue}));
     }
 
     return (
