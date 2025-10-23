@@ -26,7 +26,8 @@ export const Settings = () => {
     }, [minValue, maxValue, dispatch]);
 
     const handleChange = (setter: React.Dispatch<React.SetStateAction<number>>) => (e: ChangeEvent<HTMLInputElement>) => {
-        setter(Number(e.target.value));
+        const value = Number(e.target.value)
+        setter(value);
     };
 
     const setNewValues = () => {
