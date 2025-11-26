@@ -7,21 +7,6 @@ export type CounterInitialStateType = {
     errorMessage: string;
 }
 
-// export const changeStartValueAC = createAction<{newValue: number}>('counter/changeStartValue');
-//
-// export const changeEndValueAC = createAction<{newValue: number}>('counter/changeEndValue');
-//
-// export const changeUserValueAC = createAction<{newValue: number}>('counter/changeUserValue');
-//
-// export const setErrorMessageAC = createAction<{message: string}>('counter/setErrorMessage');
-
-const initialState: CounterInitialStateType = {
-    startValue: 1,
-    endValue: 6,
-    userValue: 1,
-    errorMessage: ''
-}
-
 export const counterSlice = createSlice({
     name: 'counter',
     initialState: {
@@ -43,8 +28,12 @@ export const counterSlice = createSlice({
         setErrorMessageAC: create.reducer<{message: string}>((state, action) => {
             state.errorMessage = action.payload.message
         })
-    })
+    }),
+    selectors: {
+        selectCounter: sliceState => sliceState
+    }
 })
 
 export const {changeEndValueAC, changeStartValueAC,changeUserValueAC,setErrorMessageAC} = counterSlice.actions
 export const counterReducer = counterSlice.reducer
+export const {selectCounter} = counterSlice.selectors

@@ -2,9 +2,13 @@ import React, { ChangeEvent, useState, useEffect } from 'react';
 import styles from './Settings.module.scss';
 import {Button} from "../ui/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCounter} from "../store/selectors";
-import {changeEndValueAC, changeStartValueAC, changeUserValueAC, setErrorMessageAC} from "../store/counter-slice";
-
+import {
+    changeEndValueAC,
+    changeStartValueAC,
+    changeUserValueAC,
+    selectCounter,
+    setErrorMessageAC
+} from "../store/counter-slice";
 
 
 export const Settings = () => {

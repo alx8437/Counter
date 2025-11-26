@@ -2,8 +2,7 @@ import React from 'react';
 import styles from './Counter.module.scss'
 import {Button} from "../ui/Button";
 import {useDispatch, useSelector} from "react-redux";
-import {selectCounter} from "../store/selectors";
-import {changeUserValueAC} from "../store/counter-slice";
+import {changeUserValueAC, selectCounter} from "../store/counter-slice";
 
 
 export const Counter = () => {
