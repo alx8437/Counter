@@ -1,12 +1,10 @@
-import {counterReducer} from "./counterReducer";
-import {combineReducers, configureStore} from "@reduxjs/toolkit";
-
-const rootReducer = combineReducers({
-    counter: counterReducer,
-})
+import {configureStore} from "@reduxjs/toolkit";
+import {counterReducer, counterSlice} from "./counter-slice";
 
 export const store = configureStore({
-    reducer: rootReducer
+    reducer: {
+        [counterSlice.name] : counterReducer
+    }
 })
 
 export type AppStateType = ReturnType<typeof store.getState>

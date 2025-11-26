@@ -3,12 +3,12 @@ import {
     changeStartValueAC,
     changeUserValueAC,
     counterReducer,
-    CounterReducerStateType, setErrorMessageAC
-} from "./counterReducer";
+    CounterInitialStateType, setErrorMessageAC
+} from "./counter-slice";
 
 
 describe('counterReducer', () => {
-    const initialState: CounterReducerStateType = {
+    const initialState: CounterInitialStateType = {
         startValue: 0,
         endValue: 5,
         userValue: 0,

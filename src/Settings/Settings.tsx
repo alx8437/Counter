@@ -3,7 +3,7 @@ import styles from './Settings.module.scss';
 import {Button} from "../ui/Button";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCounter} from "../store/selectors";
-import {changeEndValueAC, changeStartValueAC, changeUserValueAC, setErrorMessageAC} from "../store/counterReducer";
+import {changeEndValueAC, changeStartValueAC, changeUserValueAC, setErrorMessageAC} from "../store/counter-slice";
 
 
 
