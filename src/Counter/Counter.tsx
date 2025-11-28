@@ -1,13 +1,14 @@
 import React from 'react';
 import styles from './Counter.module.scss'
 import {Button} from "../ui/Button";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {changeUserValueAC, selectCounter} from "../store/counter-slice";
+import {useAppDispatch} from "../hooks/redux";
 
 
 export const Counter = () => {
     const {errorMessage, userValue, endValue, startValue} = useSelector(selectCounter);
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const hasError = !!errorMessage
 

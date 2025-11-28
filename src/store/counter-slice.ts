@@ -7,14 +7,16 @@ export type CounterInitialStateType = {
     errorMessage: string;
 }
 
+export const initialState: CounterInitialStateType = {
+    startValue: 1,
+    endValue: 6,
+    userValue: 1,
+    errorMessage: ''
+}
+
 export const counterSlice = createSlice({
     name: 'counter',
-    initialState: {
-        startValue: 1,
-        endValue: 6,
-        userValue: 1,
-        errorMessage: ''
-    } as CounterInitialStateType,
+    initialState,
     reducers: create => ({
         changeStartValueAC: create.reducer<{newValue: number}>((state, action) => {
             state.startValue = action.payload.newValue

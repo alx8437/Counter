@@ -1,7 +1,6 @@
 import React, { ChangeEvent, useState, useEffect } from 'react';
 import styles from './Settings.module.scss';
 import {Button} from "../ui/Button";
-import {useDispatch, useSelector} from "react-redux";
 import {
     changeEndValueAC,
     changeStartValueAC,
@@ -9,11 +8,12 @@ import {
     selectCounter,
     setErrorMessageAC
 } from "../store/counter-slice";
+import {useAppDispatch, useAppSelector} from "../hooks/redux";
 
 
 export const Settings = () => {
-    const { endValue, startValue} = useSelector(selectCounter);
-    const dispatch = useDispatch();
+    const { endValue, startValue} = useAppSelector(selectCounter);
+    const dispatch = useAppDispatch();
 
     const [minValue, setMinValue] = useState(startValue);
     const [maxValue, setMaxValue] = useState(endValue);
